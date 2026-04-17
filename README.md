@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/AnuranjanJain/promptwars-stadium-iq/main/public/favicon.ico" width="80" alt="StadiumIQ Logo">
   <h1>🏟️ StadiumIQ</h1>
   <p><strong>Your AI-Powered Personal Stadium Concierge</strong></p>
   <p><em>Built for the Google PromptWars Hackathon 2026</em></p>
