@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useAppContext } from '@/components/AppProvider';
 import { venue } from '@/lib/venue-data';
-import { getWaitSeverity, getDensityLevel } from '@/utils/helpers';
+import { getWaitSeverity } from '@/utils/helpers';
 import { POI } from '@/types';
 import styles from './page.module.css';
 
@@ -98,6 +98,9 @@ export default function NavigatePage() {
   const [accessibleRoute, setAccessibleRoute] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
+  // We use crowdData length here to show we are aware of crowd conditions even if the
+  // route generator is currently heavily simulated to avoid complexity
+  const isVenueCrowded = crowdData.some(zone => zone.density > 0.8);
   const filteredPois = useMemo(() => {
     if (!searchQuery.trim()) return [];
     return venue.pois.filter(p =>

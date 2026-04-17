@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useAppContext } from '@/components/AppProvider';
 import { triviaQuestions } from '@/lib/venue-data';
 import { timeAgo } from '@/utils/helpers';
-import { EventFeedItem } from '@/types';
 import styles from './page.module.css';
 
 type FeedTab = 'all' | 'score' | 'announcement' | 'alert' | 'trivia' | 'promo';

@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import { useAppContext } from '@/components/AppProvider';
 import { venue } from '@/lib/venue-data';
 import { getDensityLevel, getWaitSeverity } from '@/utils/helpers';
-import { POI, POICategory, CrowdDensity } from '@/types';
+import { POI, POICategory } from '@/types';
 import styles from './page.module.css';
 
 type FilterType = 'all' | POICategory;

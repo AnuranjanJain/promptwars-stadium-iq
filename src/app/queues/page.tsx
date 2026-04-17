@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useAppContext } from '@/components/AppProvider';
 import { getWaitSeverity, getCategoryLabel } from '@/utils/helpers';
-import { QueueInfo, POICategory } from '@/types';
+import { QueueInfo } from '@/types';
 import styles from './page.module.css';
 
 type SortType = 'wait' | 'name' | 'trend';

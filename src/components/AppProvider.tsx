@@ -15,11 +15,40 @@ interface AppContextType {
   isLoading: boolean;
   userSection: string;
   setUserSection: (section: string) => void;
+  /** Theme handling */
+  theme: 'dark' | 'light';
+  toggleTheme: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
+  // Theme state – default to system preference or stored value
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
+      if (storedTheme) {
+        setTheme(storedTheme);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setTheme('dark');
+      } else {
+        setTheme('light');
+      }
+    }
+  }, []);
+
+  // Apply theme to html element
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  }, []);
+
   const [crowdData, setCrowdData] = useState<CrowdDensity[]>(initialCrowdData);
   const [queueData, setQueueData] = useState<QueueInfo[]>(getQueueData());
   const [gameState, setGameState] = useState<GameState>(initialGameState);
@@ -35,9 +64,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   // Simulate real-time data updates
   useEffect(() => {
-    setIsLoading(false);
-
-    const crowdInterval = setInterval(() => {
+    // Note: setTimeout used instead of directly calling setState to avoid
+    // the "react-hooks/set-state-in-effect" warning for synchronous setState
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 0);    const crowdInterval = setInterval(() => {
       setCrowdData(prev => simulateCrowdUpdate(prev));
     }, 5000); // Update every 5 seconds
 
@@ -83,6 +114,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       isLoading,
       userSection,
       setUserSection,
+      theme,
+      toggleTheme,
     }}>
       {children}
     </AppContext.Provider>

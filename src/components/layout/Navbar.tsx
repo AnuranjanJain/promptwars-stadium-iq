@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAppContext } from '@/components/AppProvider';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import styles from './Navbar.module.css';
 
 const navItems = [
@@ -39,17 +40,20 @@ export default function Navbar() {
           ))}
         </div>
 
-        {gameState.status === 'live' && (
-          <div className={styles.gameScore} aria-live="polite">
-            <span className={styles.liveIndicator}>
-              <span className="status-dot live" />
-              LIVE
-            </span>
-            <span className={styles.scoreText}>
-              {gameState.homeTeam.split(' ').pop()} {gameState.homeScore} - {gameState.awayScore} {gameState.awayTeam.split(' ').pop()}
-            </span>
-          </div>
-        )}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
+          {gameState.status === 'live' && (
+            <div className={styles.gameScore} aria-live="polite">
+              <span className={styles.liveIndicator}>
+                <span className="status-dot live" />
+                LIVE
+              </span>
+              <span className={styles.scoreText}>
+                {gameState.homeTeam.split(' ').pop()} {gameState.homeScore} - {gameState.awayScore} {gameState.awayTeam.split(' ').pop()}
+              </span>
+            </div>
+          )}
+          <ThemeToggle />
+        </div>
       </div>
     </nav>
   );

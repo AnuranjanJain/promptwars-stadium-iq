@@ -3,8 +3,7 @@
 // Generates realistic crowd density fluctuations for demo
 // ============================================================
 
-import { CrowdDensity, QueueInfo, GameState, EventFeedItem } from '@/types';
-import { initialCrowdData, venue, initialGameState, initialFeedItems } from './venue-data';
+import { CrowdDensity, QueueInfo, GameState } from '@/types';
 
 // Simulate crowd density changes
 export function simulateCrowdUpdate(currentData: CrowdDensity[]): CrowdDensity[] {

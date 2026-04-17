@@ -19,14 +19,20 @@ const SUGGESTIONS = [
 
 export default function ChatPage() {
   const { gameState } = useAppContext();
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: 'welcome',
-      role: 'assistant',
-      content: `👋 Hey there! I'm **Stadium Buddy**, your AI concierge for National Arena!\n\n⚽ **${gameState.homeTeam} ${gameState.homeScore} - ${gameState.awayScore} ${gameState.awayTeam}** (${gameState.period}, ${gameState.timeRemaining})\n\nI can help you with:\n- 🍔 Finding food with the shortest waits\n- 🚻 Nearest restrooms and queue times\n- 🗺️ Navigation within the stadium\n- 🔮 Crowd predictions\n- 📸 Photo-based location finding\n\nWhat do you need?`,
-      timestamp: Date.now(),
-    },
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  
+  useEffect(() => {
+    // Initialize messages on client to avoid hydration mismatch with Date.now()
+    setMessages([
+      {
+        id: 'welcome',
+        role: 'assistant',
+        content: `👋 Hey there! I'm **Stadium Buddy**, your AI concierge for National Arena!\n\n⚽ **${gameState.homeTeam} ${gameState.homeScore} - ${gameState.awayScore} ${gameState.awayTeam}** (${gameState.period}, ${gameState.timeRemaining})\n\nI can help you with:\n- 🍔 Finding food with the shortest waits\n- 🚻 Nearest restrooms and queue times\n- 🗺️ Navigation within the stadium\n- 🔮 Crowd predictions\n- 📸 Photo-based location finding\n\nWhat do you need?`,
+        timestamp: Date.now(),
+      },
+    ]);
+  }, [gameState]);
+
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
