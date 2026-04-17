@@ -1,0 +1,316 @@
+.feedPage {
+  padding-top: calc(var(--nav-height) + var(--space-lg));
+  padding-bottom: calc(var(--bottom-nav-height) + var(--space-xl));
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  margin: 0 auto;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.tab {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.tab:hover {
+  background: var(--color-bg-glass-hover);
+}
+
+.tabActive {
+  background: var(--color-accent-glow);
+  border-color: var(--color-accent);
+  color: var(--color-accent-light);
+}
+
+/* Score Banner */
+.scoreBanner {
+  background: var(--gradient-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.scoreTeams {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+
+.team {
+  text-align: center;
+}
+
+.teamName {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.teamScore {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.scoreVs {
+  font-size: 1.2rem;
+  color: var(--color-text-muted);
+  font-weight: 300;
+}
+
+.scoreMeta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* Feed Items */
+.feedList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.feedItem {
+  background: var(--color-bg-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: all var(--transition-base);
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.feedItem:hover {
+  background: var(--color-bg-glass-hover);
+  border-color: var(--color-border-hover);
+}
+
+.feedItemHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.feedItemIcon {
+  font-size: 1.3rem;
+  margin-right: var(--space-sm);
+}
+
+.feedItemTitle {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  flex: 1;
+}
+
+.feedItemTime {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  margin-left: var(--space-md);
+}
+
+.feedItemMessage {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.feedItemAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-md);
+  padding: 8px 16px;
+  background: var(--color-accent-glow);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-accent-light);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.feedItemAction:hover {
+  background: var(--color-accent-dark);
+  color: white;
+}
+
+/* Priority indicators */
+.feedItem.high {
+  border-left: 3px solid var(--color-danger);
+}
+
+.feedItem.critical {
+  border-left: 3px solid var(--color-danger);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.feedItem.medium {
+  border-left: 3px solid var(--color-warning);
+}
+
+/* Trivia section */
+.triviaCard {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.05) 100%);
+  border: 1px solid var(--color-border-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.triviaTitle {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.triviaQuestion {
+  font-size: 0.95rem;
+  margin-bottom: var(--space-md);
+  color: var(--color-text-primary);
+}
+
+.triviaOptions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.triviaOption {
+  padding: 12px 18px;
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.triviaOption:hover {
+  background: var(--color-bg-glass-hover);
+  border-color: var(--color-border-hover);
+}
+
+.triviaOption.selected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-glow);
+}
+
+.triviaOption.correct {
+  border-color: var(--color-success);
+  background: var(--color-success-bg);
+}
+
+.triviaOption.wrong {
+  border-color: var(--color-danger);
+  background: var(--color-danger-bg);
+}
+
+.triviaResult {
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.triviaResult.correct {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.triviaResult.wrong {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
+/* Points display */
+.points {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--gradient-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.pointsIcon {
+  font-size: 1.5rem;
+}
+
+.pointsValue {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-accent-light);
+}
+
+.pointsLabel {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .scoreTeams {
+    gap: var(--space-md);
+  }
+
+  .teamScore {
+    font-size: 2.2rem;
+  }
+}

@@ -1,0 +1,317 @@
+.navPage {
+  padding-top: calc(var(--nav-height) + var(--space-lg));
+  padding-bottom: calc(var(--bottom-nav-height) + var(--space-xl));
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+}
+
+/* Search */
+.searchBox {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+
+.searchInput {
+  flex: 1;
+  padding: 14px 18px;
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.searchInput:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-glow);
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Quick Destinations */
+.quickSection {
+  margin-bottom: var(--space-xl);
+}
+
+.sectionLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+}
+
+.quickGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-sm);
+}
+
+.quickBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-align: center;
+}
+
+.quickBtn:hover {
+  background: var(--color-bg-glass-hover);
+  border-color: var(--color-border-accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+.quickBtn.selected {
+  background: var(--color-accent-glow);
+  border-color: var(--color-accent);
+}
+
+.quickIcon {
+  font-size: 1.8rem;
+}
+
+.quickLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.quickWait {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+/* Route Result */
+.routeResult {
+  background: var(--color-bg-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  animation: fadeInUp 0.4s ease forwards;
+  margin-bottom: var(--space-xl);
+}
+
+.routeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.routeTitle {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.routeStats {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.routeStat {
+  text-align: center;
+}
+
+.routeStatValue {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-accent-light);
+}
+
+.routeStatLabel {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+/* Steps */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.step {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  position: relative;
+}
+
+.stepConnector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30px;
+  flex-shrink: 0;
+}
+
+.stepDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.stepDot.start {
+  background: var(--color-success);
+  width: 16px;
+  height: 16px;
+}
+
+.stepDot.end {
+  background: var(--color-accent-light);
+  width: 16px;
+  height: 16px;
+}
+
+.stepLine {
+  width: 2px;
+  flex: 1;
+  background: var(--color-border);
+}
+
+.stepContent {
+  flex: 1;
+  padding-bottom: var(--space-sm);
+}
+
+.stepTitle {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 2px;
+}
+
+.stepDesc {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.stepTime {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.crowdWarning {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--color-warning);
+  padding: 4px 8px;
+  background: var(--color-warning-bg);
+  border-radius: var(--radius-sm);
+  width: fit-content;
+}
+
+/* Toggle */
+.toggleSection {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 8px 16px;
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all var(--transition-fast);
+}
+
+.toggle:hover {
+  background: var(--color-bg-glass-hover);
+}
+
+.toggle.active {
+  background: var(--color-accent-glow);
+  border-color: var(--color-accent);
+  color: var(--color-accent-light);
+}
+
+.toggleDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  transition: background var(--transition-fast);
+}
+
+.toggle.active .toggleDot {
+  background: var(--color-accent-light);
+}
+
+/* Empty state */
+.emptyState {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-md);
+  color: var(--color-text-muted);
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+}
+
+.emptyText {
+  font-size: 1rem;
+  margin-bottom: var(--space-sm);
+}
+
+.emptyHint {
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .quickGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .routeStats {
+    gap: var(--space-md);
+  }
+}

@@ -1,0 +1,270 @@
+.queuesPage {
+  padding-top: calc(var(--nav-height) + var(--space-lg));
+  padding-bottom: calc(var(--bottom-nav-height) + var(--space-xl));
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.sortBtns {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.sortBtn {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sortBtn:hover {
+  background: var(--color-bg-glass-hover);
+}
+
+.sortBtnActive {
+  background: var(--color-accent-glow);
+  border-color: var(--color-accent);
+  color: var(--color-accent-light);
+}
+
+/* Prediction Banner */
+.predictionBanner {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(249, 115, 22, 0.08) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.predictionIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.predictionText {
+  flex: 1;
+}
+
+.predictionTitle {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-warning);
+  margin-bottom: 2px;
+}
+
+.predictionDesc {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+/* Category sections */
+.categorySection {
+  max-width: var(--max-width);
+  margin: 0 auto var(--space-xl);
+  padding: 0 var(--space-md);
+}
+
+.categoryTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.queueGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-md);
+}
+
+/* Queue Card */
+.queueCard {
+  background: var(--color-bg-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: all var(--transition-base);
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.queueCard:hover {
+  background: var(--color-bg-glass-hover);
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.cardIcon {
+  font-size: 1.5rem;
+}
+
+.cardName {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.cardCategory {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.trendBadge {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.trendUp {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
+.trendDown {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.trendStable {
+  background: var(--color-info-bg);
+  color: var(--color-info);
+}
+
+/* Wait Time Display */
+.waitDisplay {
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+.waitTime {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.waitUnit {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin-left: 4px;
+}
+
+.waitLabel {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+/* Stats row */
+.statsRow {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.statItem {
+  flex: 1;
+  text-align: center;
+  padding: var(--space-sm);
+  background: var(--color-bg-glass);
+  border-radius: var(--radius-sm);
+}
+
+.statValue {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.statLabel {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.bestTime {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  padding: var(--space-sm);
+  background: var(--color-bg-glass);
+  border-radius: var(--radius-sm);
+}
+
+.bestTimeGood {
+  color: var(--color-success);
+  background: var(--color-success-bg);
+}
+
+@media (max-width: 768px) {
+  .queueGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .predictionBanner {
+    margin: 0 var(--space-md) var(--space-lg);
+  }
+}
