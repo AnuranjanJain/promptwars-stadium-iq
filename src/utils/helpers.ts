@@ -1,11 +1,28 @@
 // ============================================================
 // StadiumIQ — Shared Utility Functions
+// Pure utility functions for distance calculations, formatting,
+// and venue-specific data transformations.
 // ============================================================
 
 import { LatLng } from '@/types';
 
 /**
- * Calculate distance between two coordinates (Haversine formula)
+ * Calculates the great-circle distance between two geographic coordinates
+ * using the Haversine formula. This is used for venue-scale distance
+ * calculations between POIs, sections, and user positions.
+ *
+ * @param a - The first coordinate point
+ * @param b - The second coordinate point
+ * @returns Distance in meters between the two points
+ *
+ * @example
+ * ```ts
+ * const meters = getDistance(
+ *   { lat: 28.6129, lng: 77.2295 },
+ *   { lat: 28.6140, lng: 77.2285 }
+ * );
+ * console.log(meters); // ~147.5
+ * ```
  */
 export function getDistance(a: LatLng, b: LatLng): number {
   const R = 6371000; // Earth radius in meters
@@ -17,12 +34,23 @@ export function getDistance(a: LatLng, b: LatLng): number {
   return R * 2 * Math.atan2(Math.sqrt(calc), Math.sqrt(1 - calc));
 }
 
+/**
+ * Converts degrees to radians.
+ * @param deg - Angle in degrees
+ * @returns Angle in radians
+ */
 function toRad(deg: number): number {
   return (deg * Math.PI) / 180;
 }
 
 /**
- * Format distance for display
+ * Formats a distance in meters into a human-readable string.
+ * - Under 100m: exact meters (e.g., "42m")
+ * - 100–999m: rounded to nearest 10m (e.g., "120m")
+ * - 1000m+: kilometers with one decimal (e.g., "1.5km")
+ *
+ * @param meters - Distance in meters
+ * @returns Formatted distance string
  */
 export function formatDistance(meters: number): string {
   if (meters < 100) return `${Math.round(meters)}m`;
@@ -31,7 +59,11 @@ export function formatDistance(meters: number): string {
 }
 
 /**
- * Get density level label and color
+ * Maps a crowd density value (0–1) to a human-readable label,
+ * color code, and emoji indicator for consistent UI presentation.
+ *
+ * @param density - Crowd density as a fraction (0 = empty, 1 = full)
+ * @returns Object with label, hex color, and emoji
  */
 export function getDensityLevel(density: number): { label: string; color: string; emoji: string } {
   if (density < 0.3) return { label: 'Low', color: '#22c55e', emoji: '🟢' };
@@ -41,7 +73,11 @@ export function getDensityLevel(density: number): { label: string; color: string
 }
 
 /**
- * Get wait time severity
+ * Maps a queue wait time to a severity level with label and color
+ * for visual indicators in the queue dashboard.
+ *
+ * @param minutes - Estimated wait time in minutes
+ * @returns Object with severity label and hex color
  */
 export function getWaitSeverity(minutes: number): { label: string; color: string } {
   if (minutes <= 3) return { label: 'No Wait', color: '#22c55e' };
@@ -51,7 +87,11 @@ export function getWaitSeverity(minutes: number): { label: string; color: string
 }
 
 /**
- * Format relative time
+ * Converts a timestamp to a relative time string (e.g., "5m ago").
+ * Used in the live event feed to show how recent each event is.
+ *
+ * @param timestamp - Unix timestamp in milliseconds
+ * @returns Relative time string
  */
 export function timeAgo(timestamp: number): string {
   const seconds = Math.floor((Date.now() - timestamp) / 1000);
@@ -64,14 +104,21 @@ export function timeAgo(timestamp: number): string {
 }
 
 /**
- * Generate unique ID
+ * Generates a unique identifier using a combination of the current
+ * timestamp and random characters. Suitable for client-side ID generation
+ * where collision probability is acceptably low.
+ *
+ * @returns A unique string identifier
  */
 export function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).substring(2, 9);
 }
 
 /**
- * Category icons
+ * Returns the emoji icon associated with a POI category.
+ *
+ * @param category - The POI category string
+ * @returns Emoji icon string, or 📍 for unknown categories
  */
 export function getCategoryIcon(category: string): string {
   const icons: Record<string, string> = {
@@ -88,7 +135,10 @@ export function getCategoryIcon(category: string): string {
 }
 
 /**
- * Category labels
+ * Returns the human-readable label for a POI category.
+ *
+ * @param category - The POI category string
+ * @returns Human-readable category label, or the raw string for unknowns
  */
 export function getCategoryLabel(category: string): string {
   const labels: Record<string, string> = {
@@ -105,7 +155,12 @@ export function getCategoryLabel(category: string): string {
 }
 
 /**
- * Clamp number between min and max
+ * Clamps a numeric value between a minimum and maximum bound.
+ *
+ * @param value - The value to clamp
+ * @param min - Minimum allowed value
+ * @param max - Maximum allowed value
+ * @returns The clamped value
  */
 export function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);

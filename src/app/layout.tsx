@@ -1,13 +1,14 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { AppProvider } from '@/components/AppProvider';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Navbar from '@/components/layout/Navbar';
 import BottomNav from '@/components/layout/BottomNav';
 
 export const metadata: Metadata = {
   title: 'StadiumIQ — AI-Powered Smart Venue Assistant',
   description: 'Your personal AI concierge for sporting events. Real-time crowd intelligence, smart navigation, queue estimates, and an AI chatbot to make your stadium experience seamless.',
-  keywords: 'stadium, AI assistant, crowd management, queue times, smart venue, sporting events',
+  keywords: 'stadium, AI assistant, crowd management, queue times, smart venue, sporting events, Gemini AI, Google Maps, Firebase',
   authors: [{ name: 'StadiumIQ Team' }],
   openGraph: {
     title: 'StadiumIQ — AI-Powered Smart Venue Assistant',
@@ -31,14 +32,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AppProvider>
-          <a href="#main-content" className="sr-only">Skip to main content</a>
-          <Navbar />
-          <main id="main-content">
-            {children}
-          </main>
-          <BottomNav />
-        </AppProvider>
+        <ErrorBoundary>
+          <AppProvider>
+            <a href="#main-content" className="sr-only">Skip to main content</a>
+            <Navbar />
+            <main id="main-content" role="main">
+              {children}
+            </main>
+            <BottomNav />
+          </AppProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

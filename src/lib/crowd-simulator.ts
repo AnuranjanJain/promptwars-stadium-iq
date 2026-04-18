@@ -1,11 +1,23 @@
 // ============================================================
 // StadiumIQ — Crowd Simulator
-// Generates realistic crowd density fluctuations for demo
+// Generates realistic crowd density fluctuations, queue changes,
+// and game state progression for live demo environments.
 // ============================================================
 
 import { CrowdDensity, QueueInfo, GameState } from '@/types';
 
-// Simulate crowd density changes
+/**
+ * Simulates crowd density changes across all venue zones using
+ * a bounded random walk with periodic rush patterns.
+ *
+ * The simulation models realistic crowd behavior:
+ * - Slight upward bias during active game periods
+ * - Periodic surges at food and restroom zones (mimicking halftime rushes)
+ * - Density is clamped to [0.05, 0.98] to prevent extreme values
+ *
+ * @param currentData - Current crowd density readings for all zones
+ * @returns Updated crowd density array with new values and trends
+ */
 export function simulateCrowdUpdate(currentData: CrowdDensity[]): CrowdDensity[] {
   return currentData.map(zone => {
     // Random walk with bounds
@@ -36,7 +48,19 @@ export function simulateCrowdUpdate(currentData: CrowdDensity[]): CrowdDensity[]
   });
 }
 
-// Simulate queue wait time changes
+/**
+ * Simulates queue wait time fluctuations for concessions,
+ * restrooms, and merchandise stalls.
+ *
+ * Queue behavior characteristics:
+ * - Wait times bounded to [1, 30] minutes
+ * - Queue length derived from wait time (2.5x multiplier)
+ * - Serve time calculated as wait / 3
+ * - Trend detection based on wait time direction
+ *
+ * @param currentQueues - Current queue information for all tracked POIs
+ * @returns Updated queue data with new wait times and trends
+ */
 export function simulateQueueUpdate(currentQueues: QueueInfo[]): QueueInfo[] {
   return currentQueues.map(queue => {
     const delta = Math.floor((Math.random() - 0.45) * 4);
@@ -60,7 +84,18 @@ export function simulateQueueUpdate(currentQueues: QueueInfo[]): QueueInfo[] {
   });
 }
 
-// Simulate game state progression
+/**
+ * Simulates game state progression, advancing the match clock
+ * and handling period transitions.
+ *
+ * Game simulation features:
+ * - Clock advances by 15 seconds per tick
+ * - Very rare random goal events (0.2% chance per tick)
+ * - Automatic period transitions (1st Half → Halftime, 2nd Half → Finished)
+ *
+ * @param state - Current game state
+ * @returns Updated game state with advanced clock and possible score changes
+ */
 export function simulateGameUpdate(state: GameState): GameState {
   const [mins, secs] = state.timeRemaining.split(':').map(Number);
   let newSecs = secs + 15; // Advance 15 seconds
@@ -93,7 +128,19 @@ export function simulateGameUpdate(state: GameState): GameState {
   };
 }
 
-// Generate crowd predictions
+/**
+ * Generates crowd density predictions for 15, 30, and 60 minutes
+ * into the future based on current density levels and trend directions.
+ *
+ * Prediction characteristics:
+ * - Confidence decreases for longer timeframes (85% → 72% → 55%)
+ * - Trend-aware: increasing zones project higher future density
+ * - Post-match 60-min prediction accounts for typical crowd dispersal
+ * - Provides actionable natural-language recommendations per zone
+ *
+ * @param currentData - Current crowd density data for all zones
+ * @returns Array of prediction objects with forecasts and recommendations
+ */
 export function generatePredictions(currentData: CrowdDensity[]) {
   return currentData.map(zone => ({
     zoneId: zone.zoneId,
