@@ -216,3 +216,127 @@ function getFallbackResponse(message: string): string {
 
   return "👋 I'm **Stadium Buddy**! I can help you with:\n\n- 🍔 Finding the best food with shortest waits\n- 🚻 Nearest restrooms and wait times\n- 🗺️ Navigation within the stadium\n- ⚽ Live game updates\n- 👥 Group coordination\n\nWhat do you need help with?";
 }
+
+/**
+ * Uses Gemini AI to generate a personalized safety briefing
+ * for venue attendees. Includes emergency exit locations,
+ * first aid positions, and weather-specific safety tips.
+ *
+ * Falls back to a pre-written safety briefing when the API is unavailable.
+ *
+ * @param section - The user's current section in the venue
+ * @returns A personalized safety briefing string
+ *
+ * @example
+ * ```ts
+ * const briefing = await generateSafetyBriefing('North Stand - Lower');
+ * ```
+ */
+export async function generateSafetyBriefing(section: string): Promise<string> {
+  const geminiModel = getModel();
+
+  if (!geminiModel) {
+    return getFallbackSafetyBriefing(section);
+  }
+
+  try {
+    const result = await geminiModel.generateContent(
+      `As Stadium Buddy, generate a brief personalized safety briefing for a fan sitting in "${section}" at National Arena. Include: nearest emergency exit, nearest first aid station, and one general safety tip. Keep it under 100 words and friendly.`
+    );
+    return result.response.text();
+  } catch (error) {
+    console.error('Gemini safety briefing error:', error);
+    return getFallbackSafetyBriefing(section);
+  }
+}
+
+/**
+ * Generates a deterministic safety briefing for a given section.
+ *
+ * @param section - The user's venue section
+ * @returns Pre-written safety briefing
+ */
+function getFallbackSafetyBriefing(section: string): string {
+  const isNorth = section.toLowerCase().includes('north');
+  const isSouth = section.toLowerCase().includes('south');
+  const isVIP = section.toLowerCase().includes('vip');
+
+  const nearestExit = isNorth ? 'Gate A (North)' : isSouth ? 'Gate B (South)' : 'Gate D (West)';
+  const nearestAid = isNorth ? 'First Aid - North (Ground Floor)' : 'First Aid - South (Ground Floor)';
+
+  return `🛡️ **Your Safety Briefing — ${section}**\n\n` +
+    `🚪 **Nearest Exit:** ${nearestExit}\n` +
+    `🏥 **Nearest First Aid:** ${nearestAid}\n` +
+    `${isVIP ? '🌟 **VIP Tip:** Your section has a dedicated emergency exit to the east.\n' : ''}` +
+    `💡 **Safety Tip:** Keep your belongings secure and stay hydrated. If you need help, flag any staff member or ask me!\n\n` +
+    `In case of emergency, follow the illuminated exit signs and staff instructions. Stay calm and help those around you.`;
+}
+
+/**
+ * Uses Gemini AI to translate a message to the specified target language.
+ * This enables multi-language support for international visitors
+ * at sporting events, leveraging Gemini's natural language capabilities.
+ *
+ * Falls back to the original text with a disclaimer when the API is unavailable.
+ *
+ * @param text - The text to translate
+ * @param targetLanguage - The target language (e.g., 'Hindi', 'Spanish', 'Japanese')
+ * @returns Translated text string
+ *
+ * @example
+ * ```ts
+ * const hindi = await translateMessage('Where is the restroom?', 'Hindi');
+ * // 'शौचालय कहाँ है?'
+ * ```
+ */
+export async function translateMessage(
+  text: string,
+  targetLanguage: string
+): Promise<string> {
+  const geminiModel = getModel();
+
+  if (!geminiModel) {
+    return getFallbackTranslation(text, targetLanguage);
+  }
+
+  try {
+    const result = await geminiModel.generateContent(
+      `Translate the following text to ${targetLanguage}. Return ONLY the translated text, nothing else.\n\nText: "${text}"`
+    );
+    return result.response.text();
+  } catch (error) {
+    console.error('Gemini translation error:', error);
+    return getFallbackTranslation(text, targetLanguage);
+  }
+}
+
+/**
+ * Returns a fallback translation response when Gemini is unavailable.
+ *
+ * @param text - Original text
+ * @param targetLanguage - Requested language
+ * @returns Fallback message with original text
+ */
+function getFallbackTranslation(text: string, targetLanguage: string): string {
+  const commonTranslations: Record<string, Record<string, string>> = {
+    'Hindi': {
+      'Where is the restroom?': 'शौचालय कहाँ है?',
+      'Where can I eat?': 'मैं कहाँ खा सकता हूँ?',
+      'Help': 'मदद',
+      'Emergency': 'आपातकाल',
+    },
+    'Spanish': {
+      'Where is the restroom?': '¿Dónde está el baño?',
+      'Where can I eat?': '¿Dónde puedo comer?',
+      'Help': 'Ayuda',
+      'Emergency': 'Emergencia',
+    },
+  };
+
+  const langTranslations = commonTranslations[targetLanguage];
+  if (langTranslations && langTranslations[text]) {
+    return langTranslations[text];
+  }
+
+  return `[${targetLanguage}] ${text} (Translation requires Gemini API key)`;
+}

@@ -50,10 +50,16 @@ const features = [
 ];
 
 const googleServices = [
-  { icon: '🧠', name: 'Gemini AI', desc: 'Smart chatbot & predictions' },
-  { icon: '🗺️', name: 'Google Maps', desc: 'Interactive venue mapping' },
-  { icon: '🔥', name: 'Firebase', desc: 'Real-time data sync' },
-  { icon: '🔐', name: 'Firebase Auth', desc: 'Anonymous auth' },
+  { icon: '🧠', name: 'Gemini AI (Text)', desc: 'Smart chatbot & crowd insights' },
+  { icon: '👁️', name: 'Gemini AI (Vision)', desc: 'Visual location detection' },
+  { icon: '🌐', name: 'Gemini AI (Translation)', desc: 'Multi-language support' },
+  { icon: '🗺️', name: 'Google Maps JS API', desc: 'Interactive venue mapping' },
+  { icon: '📍', name: 'Geocoding API', desc: 'Address resolution' },
+  { icon: '🏪', name: 'Places API', desc: 'Nearby transit & parking' },
+  { icon: '🔊', name: 'Cloud Text-to-Speech', desc: 'Accessible audio alerts' },
+  { icon: '🔥', name: 'Firebase Firestore', desc: 'Real-time data persistence' },
+  { icon: '🔐', name: 'Firebase Auth', desc: 'Anonymous authentication' },
+  { icon: '📊', name: 'Firebase Analytics', desc: 'Event tracking pipeline' },
 ];
 
 export default function HomePage() {

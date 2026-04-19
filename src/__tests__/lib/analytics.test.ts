@@ -1,12 +1,31 @@
 // ============================================================
 // StadiumIQ — Unit Tests: Analytics & Crowd Insights
+// Extended to cover logEvent, logPageView, logInteraction,
+// logPerformanceMetric, logError, and getRecentEvents.
 // ============================================================
 
-import { generateCrowdInsight } from '@/lib/gemini';
+// Mock Firestore operations to prevent hanging connections
+jest.mock('firebase/firestore', () => {
+  const actual = jest.requireActual('firebase/firestore');
+  return {
+    ...actual,
+    addDoc: jest.fn().mockResolvedValue({ id: 'mock-doc-id' }),
+    getDocs: jest.fn().mockResolvedValue({ docs: [] }),
+  };
+});
 
-// Note: We test the analytics logEvent functions indirectly through
-// the analytics module's graceful failure behavior, and focus
-// direct testing on the Gemini crowd insight feature.
+import { generateCrowdInsight } from '@/lib/gemini';
+import {
+  logEvent,
+  logPageView,
+  logInteraction,
+  logPerformanceMetric,
+  logError,
+  getRecentEvents,
+} from '@/lib/analytics';
+
+
+// --- Crowd Insight Tests (Gemini Fallback) ---
 
 describe('generateCrowdInsight — Fallback Mode', () => {
   it('returns a non-empty insight string', async () => {
@@ -80,5 +99,96 @@ describe('generateCrowdInsight — Fallback Mode', () => {
     const insight = await generateCrowdInsight(mockData);
     expect(insight).toContain('🔮');
     expect(insight).toContain('Crowd Insight');
+  });
+});
+
+// --- Analytics Functions - Direct Tests ---
+
+describe('logEvent', () => {
+  it('does not throw when logging a valid event', async () => {
+    await expect(logEvent('page_view', 'TestPage')).resolves.not.toThrow();
+  });
+
+  it('handles optional metadata', async () => {
+    await expect(
+      logEvent('chat_message', 'ChatPage', { queryType: 'food', responseTime: 200 })
+    ).resolves.not.toThrow();
+  });
+
+  it('handles undefined metadata', async () => {
+    await expect(logEvent('map_interaction', 'MapPage', undefined)).resolves.not.toThrow();
+  });
+});
+
+describe('logPageView', () => {
+  it('does not throw when logging a page view', async () => {
+    await expect(logPageView('Home')).resolves.not.toThrow();
+  });
+
+  it('handles various page names', async () => {
+    const pages = ['Home', 'Chat', 'Map', 'Queues', 'Navigate', 'Feed'];
+    for (const page of pages) {
+      await expect(logPageView(page)).resolves.not.toThrow();
+    }
+  });
+});
+
+describe('logInteraction', () => {
+  it('does not throw when logging an interaction', async () => {
+    await expect(logInteraction('HeatmapZone', 'click')).resolves.not.toThrow();
+  });
+
+  it('handles interaction with details', async () => {
+    await expect(
+      logInteraction('QueueSort', 'sort', { sortBy: 'waitTime', direction: 'asc' })
+    ).resolves.not.toThrow();
+  });
+});
+
+describe('logPerformanceMetric', () => {
+  it('does not throw when logging a metric', async () => {
+    await expect(
+      logPerformanceMetric('LCP', 1200, { page: 'Home' })
+    ).resolves.not.toThrow();
+  });
+
+  it('handles metric without context', async () => {
+    await expect(logPerformanceMetric('FID', 50)).resolves.not.toThrow();
+  });
+});
+
+describe('logError', () => {
+  it('does not throw when logging an error', async () => {
+    await expect(
+      logError('api', 'Test error message', 'error')
+    ).resolves.not.toThrow();
+  });
+
+  it('handles default severity', async () => {
+    await expect(logError('render', 'Test')).resolves.not.toThrow();
+  });
+
+  it('handles error with context', async () => {
+    await expect(
+      logError('network', 'Timeout', 'warning', { endpoint: '/api/chat', duration: 30000 })
+    ).resolves.not.toThrow();
+  });
+});
+
+describe('getRecentEvents', () => {
+  it('returns an array', async () => {
+    const events = await getRecentEvents();
+    expect(Array.isArray(events)).toBe(true);
+  });
+
+  it('handles custom maxEvents parameter', async () => {
+    const events = await getRecentEvents(10);
+    expect(Array.isArray(events)).toBe(true);
+  });
+
+  it('returns empty array when Firestore is unavailable', async () => {
+    // Without real Firebase credentials, should gracefully return []
+    const events = await getRecentEvents();
+    expect(events).toEqual([]);
   });
 });

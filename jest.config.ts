@@ -19,6 +19,7 @@ const config: Config = {
     'src/utils/**/*.ts',
     'src/app/api/**/*.ts',
     '!src/**/*.d.ts',
+    '!src/**/*.test.ts',
   ],
 };
 

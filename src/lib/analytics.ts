@@ -153,3 +153,59 @@ export async function getRecentEvents(maxEvents: number = 50): Promise<Analytics
     return [];
   }
 }
+
+/**
+ * Logs a Core Web Vital or custom performance metric to analytics.
+ * Tracks rendering performance, API response times, and interaction
+ * latency for optimization insights.
+ *
+ * @param metricName - Name of the performance metric (e.g., 'LCP', 'FID', 'CLS')
+ * @param value - Metric value in milliseconds (or unitless for CLS)
+ * @param context - Additional context about the metric measurement
+ *
+ * @example
+ * ```ts
+ * logPerformanceMetric('api_response_time', 245, { endpoint: '/api/chat' });
+ * ```
+ */
+export async function logPerformanceMetric(
+  metricName: string,
+  value: number,
+  context?: Record<string, string | number | boolean>
+): Promise<void> {
+  await logEvent('performance_metric' as AnalyticsEventType, 'PerformanceMonitor', {
+    metricName,
+    value,
+    ...context,
+  });
+}
+
+/**
+ * Logs a structured error event to the analytics pipeline.
+ * Captures error category, severity, and context for debugging
+ * and reliability monitoring.
+ *
+ * @param category - Error category (e.g., 'api', 'render', 'network')
+ * @param message - Human-readable error description
+ * @param severity - Error severity level
+ * @param context - Additional error context metadata
+ *
+ * @example
+ * ```ts
+ * logError('api', 'Gemini API timeout after 30s', 'warning', { endpoint: '/api/chat' });
+ * ```
+ */
+export async function logError(
+  category: string,
+  message: string,
+  severity: 'info' | 'warning' | 'error' | 'critical' = 'error',
+  context?: Record<string, string | number | boolean>
+): Promise<void> {
+  await logEvent('error_log' as AnalyticsEventType, 'ErrorTracker', {
+    category,
+    message: message.substring(0, 500), // Limit message length
+    severity,
+    ...context,
+  });
+}
+

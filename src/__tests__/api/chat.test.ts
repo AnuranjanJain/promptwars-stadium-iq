@@ -42,7 +42,6 @@ describe('POST /api/chat', () => {
     const data = await response.json();
 
     expect(response.status).toBe(200);
-    // Fallback or Gemini response should mention food options
     expect(data.response).toBeDefined();
   });
 
@@ -85,10 +84,25 @@ describe('POST /api/chat', () => {
     expect(typeof data.response).toBe('string');
   });
 
-  it('returns a response even when message is empty string', async () => {
+  it('returns 400 when message is empty string', async () => {
     const request = createMockRequest({ message: '' });
     const response = await POST(request);
-    // Empty string should be treated as no message
+    expect(response.status).toBe(400);
+  });
+
+  it('includes security headers in response', async () => {
+    const request = createMockRequest({ message: 'Hello' });
+    const response = await POST(request);
+
+    expect(response.headers.get('X-Content-Type-Options')).toBe('nosniff');
+    expect(response.headers.get('X-Frame-Options')).toBe('DENY');
+    expect(response.headers.get('Cache-Control')).toBe('no-store, max-age=0');
+  });
+
+  it('rejects overly long messages', async () => {
+    const request = createMockRequest({ message: 'x'.repeat(3000) });
+    const response = await POST(request);
     expect(response.status).toBe(400);
   });
 });
+
