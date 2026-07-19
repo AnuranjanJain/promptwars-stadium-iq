@@ -202,7 +202,7 @@ export async function reverseGeocode(lat: number, lng: number): Promise<Geocodin
  */
 function getFallbackGeocode(lat: number, lng: number): GeocodingResult {
   return {
-    formattedAddress: `National Arena, Rajpath Marg, India Gate, New Delhi, Delhi 110001, India (${lat.toFixed(4)}, ${lng.toFixed(4)})`,
+    formattedAddress: `New York New Jersey Stadium, East Rutherford, NJ, USA (${lat.toFixed(4)}, ${lng.toFixed(4)})`,
     components: {
       street: 'Rajpath Marg',
       area: 'India Gate',

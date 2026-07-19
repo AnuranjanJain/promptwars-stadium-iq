@@ -53,9 +53,9 @@ export async function POST(request: NextRequest) {
  */
 export async function GET() {
   // Default to venue center coordinates
-  const venueResult = await reverseGeocode(28.6129, 77.2295);
+  const venueResult = await reverseGeocode(40.8135, -74.0745);
   return NextResponse.json({
-    venue: 'National Arena',
+    venue: 'New York New Jersey Stadium',
     address: venueResult,
   });
 }

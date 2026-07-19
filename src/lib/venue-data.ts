@@ -1,118 +1,118 @@
 // ============================================================
-// StadiumIQ — Venue Data (National Arena - Fictitious Venue)
+// StadiumIQ NEXUS — FIFA World Cup 2026 venue simulation
 // ============================================================
 
 import { Venue, GameState, EventFeedItem, CrowdDensity, QueueInfo, TriviaQuestion } from '@/types';
 
-// Center coordinates for our National Arena (placed near a real area for Maps realism)
-const VENUE_CENTER = { lat: 28.6129, lng: 77.2295 }; // Near India Gate, Delhi
+// New York New Jersey Stadium area; all operational data remains synthetic.
+const VENUE_CENTER = { lat: 40.8135, lng: -74.0745 };
 
 export const venue: Venue = {
-  id: 'national-arena',
-  name: 'National Arena',
+  id: 'world-cup-2026-nynj',
+  name: 'New York New Jersey Stadium',
   location: VENUE_CENTER,
-  capacity: 60000,
-  description: 'A world-class 60,000-seat multi-sport stadium featuring state-of-the-art facilities',
+  capacity: 82500,
+  description: 'A World Cup 2026 matchday digital twin for crowd, accessibility, transport, and fan operations',
   mapZoom: 17,
   sections: [
-    { id: 'sec-north-lower', name: 'North Stand - Lower', level: 'lower', capacity: 5000, currentOccupancy: 4200, location: { lat: 28.6140, lng: 77.2295 } },
-    { id: 'sec-north-upper', name: 'North Stand - Upper', level: 'upper', capacity: 5000, currentOccupancy: 3800, location: { lat: 28.6145, lng: 77.2295 } },
-    { id: 'sec-south-lower', name: 'South Stand - Lower', level: 'lower', capacity: 5000, currentOccupancy: 4600, location: { lat: 28.6115, lng: 77.2295 } },
-    { id: 'sec-south-upper', name: 'South Stand - Upper', level: 'upper', capacity: 5000, currentOccupancy: 4100, location: { lat: 28.6110, lng: 77.2295 } },
-    { id: 'sec-east-lower', name: 'East Stand - Lower', level: 'lower', capacity: 5000, currentOccupancy: 4800, location: { lat: 28.6129, lng: 77.2315 } },
-    { id: 'sec-east-upper', name: 'East Stand - Upper', level: 'upper', capacity: 5000, currentOccupancy: 3500, location: { lat: 28.6129, lng: 77.2320 } },
-    { id: 'sec-west-lower', name: 'West Stand - Lower', level: 'lower', capacity: 5000, currentOccupancy: 4400, location: { lat: 28.6129, lng: 77.2275 } },
-    { id: 'sec-west-upper', name: 'West Stand - Upper', level: 'upper', capacity: 5000, currentOccupancy: 3200, location: { lat: 28.6129, lng: 77.2270 } },
-    { id: 'sec-vip-east', name: 'VIP Lounge - East', level: 'vip', capacity: 2000, currentOccupancy: 1800, location: { lat: 28.6135, lng: 77.2310 } },
-    { id: 'sec-vip-west', name: 'VIP Lounge - West', level: 'vip', capacity: 2000, currentOccupancy: 1500, location: { lat: 28.6135, lng: 77.2280 } },
+    { id: 'sec-north-lower', name: 'North Stand - Lower', level: 'lower', capacity: 9000, currentOccupancy: 7600, location: { lat: 40.8146, lng: -74.0745 } },
+    { id: 'sec-north-upper', name: 'North Stand - Upper', level: 'upper', capacity: 8500, currentOccupancy: 6500, location: { lat: 40.8151, lng: -74.0745 } },
+    { id: 'sec-south-lower', name: 'South Stand - Lower', level: 'lower', capacity: 9000, currentOccupancy: 8200, location: { lat: 40.8121, lng: -74.0745 } },
+    { id: 'sec-south-upper', name: 'South Stand - Upper', level: 'upper', capacity: 8500, currentOccupancy: 7000, location: { lat: 40.8116, lng: -74.0745 } },
+    { id: 'sec-east-lower', name: 'East Stand - Lower', level: 'lower', capacity: 9000, currentOccupancy: 8600, location: { lat: 40.8135, lng: -74.0725 } },
+    { id: 'sec-east-upper', name: 'East Stand - Upper', level: 'upper', capacity: 8500, currentOccupancy: 6100, location: { lat: 40.8135, lng: -74.0720 } },
+    { id: 'sec-west-lower', name: 'West Stand - Lower', level: 'lower', capacity: 9000, currentOccupancy: 7900, location: { lat: 40.8135, lng: -74.0765 } },
+    { id: 'sec-west-upper', name: 'West Stand - Upper', level: 'upper', capacity: 8500, currentOccupancy: 5800, location: { lat: 40.8135, lng: -74.0770 } },
+    { id: 'sec-vip-east', name: 'Hospitality - East', level: 'vip', capacity: 4000, currentOccupancy: 3500, location: { lat: 40.8141, lng: -74.0730 } },
+    { id: 'sec-vip-west', name: 'Hospitality - West', level: 'vip', capacity: 4000, currentOccupancy: 3200, location: { lat: 40.8141, lng: -74.0760 } },
   ],
   pois: [
     // Food & Beverage
     {
       id: 'food-1', name: 'The Grand Grill', category: 'food',
-      location: { lat: 28.6142, lng: 77.2285 }, level: 'Ground',
+      location: { lat: 40.8148, lng: -74.0755 }, level: 'Ground',
       description: 'Premium burgers, hot dogs, and grilled favorites',
       icon: '🍔', isOpen: true, currentWaitMinutes: 12, maxCapacity: 50, currentLoad: 0.78,
       accessibleRoute: true,
       menuItems: [
-        { name: 'Stadium Burger', price: 350, isVeg: false, isPopular: true },
-        { name: 'Veggie Wrap', price: 250, isVeg: true, isPopular: false },
-        { name: 'Loaded Fries', price: 200, isVeg: true, isPopular: true },
-        { name: 'Chicken Wings (6pc)', price: 400, isVeg: false, isPopular: true },
+        { name: 'Stadium Burger', price: 15, isVeg: false, isPopular: true },
+        { name: 'Veggie Wrap', price: 12, isVeg: true, isPopular: false },
+        { name: 'Loaded Fries', price: 9, isVeg: true, isPopular: true },
+        { name: 'Chicken Wings (6pc)', price: 16, isVeg: false, isPopular: true },
       ]
     },
     {
       id: 'food-2', name: 'Pizza Corner', category: 'food',
-      location: { lat: 28.6120, lng: 77.2305 }, level: 'Ground',
+      location: { lat: 40.8126, lng: -74.0735 }, level: 'Ground',
       description: 'Fresh pizzas and pasta',
       icon: '🍕', isOpen: true, currentWaitMinutes: 8, maxCapacity: 40, currentLoad: 0.55,
       accessibleRoute: true,
       menuItems: [
-        { name: 'Margherita Pizza', price: 300, isVeg: true, isPopular: true },
-        { name: 'Pepperoni Pizza', price: 400, isVeg: false, isPopular: true },
-        { name: 'Garlic Bread', price: 150, isVeg: true, isPopular: false },
+        { name: 'Margherita Pizza', price: 13, isVeg: true, isPopular: true },
+        { name: 'Pepperoni Pizza', price: 15, isVeg: false, isPopular: true },
+        { name: 'Garlic Bread', price: 7, isVeg: true, isPopular: false },
       ]
     },
     {
-      id: 'food-3', name: 'Chai & Snacks', category: 'food',
-      location: { lat: 28.6135, lng: 77.2310 }, level: 'Level 1',
-      description: 'Indian snacks, chai, and beverages',
+      id: 'food-3', name: 'Global Bites', category: 'food',
+      location: { lat: 40.8141, lng: -74.0730 }, level: 'Level 1',
+      description: 'Fast international snacks and beverages',
       icon: '☕', isOpen: true, currentWaitMinutes: 5, maxCapacity: 30, currentLoad: 0.40,
       accessibleRoute: true,
       menuItems: [
-        { name: 'Masala Chai', price: 80, isVeg: true, isPopular: true },
-        { name: 'Samosa (2pc)', price: 100, isVeg: true, isPopular: true },
-        { name: 'Vada Pav', price: 80, isVeg: true, isPopular: true },
-        { name: 'Cold Coffee', price: 150, isVeg: true, isPopular: false },
+        { name: 'Iced Tea', price: 6, isVeg: true, isPopular: true },
+        { name: 'Empanadas (2pc)', price: 9, isVeg: true, isPopular: true },
+        { name: 'Falafel Pocket', price: 11, isVeg: true, isPopular: true },
+        { name: 'Cold Coffee', price: 7, isVeg: true, isPopular: false },
       ]
     },
     {
       id: 'food-4', name: 'Hydration Station', category: 'food',
-      location: { lat: 28.6125, lng: 77.2280 }, level: 'Ground',
+      location: { lat: 40.8131, lng: -74.0760 }, level: 'Ground',
       description: 'Water, juices, and energy drinks',
       icon: '🥤', isOpen: true, currentWaitMinutes: 3, maxCapacity: 20, currentLoad: 0.30,
       accessibleRoute: true,
       menuItems: [
-        { name: 'Water Bottle', price: 40, isVeg: true, isPopular: true },
-        { name: 'Fresh Juice', price: 120, isVeg: true, isPopular: false },
-        { name: 'Energy Drink', price: 180, isVeg: true, isPopular: false },
+        { name: 'Water Bottle', price: 4, isVeg: true, isPopular: true },
+        { name: 'Fresh Juice', price: 7, isVeg: true, isPopular: false },
+        { name: 'Energy Drink', price: 8, isVeg: true, isPopular: false },
       ]
     },
     {
-      id: 'food-5', name: 'Biryani Bowl', category: 'food',
-      location: { lat: 28.6118, lng: 77.2288 }, level: 'Level 1',
-      description: 'Authentic Hyderabadi biryani and kebabs',
+      id: 'food-5', name: 'World Flavors', category: 'food',
+      location: { lat: 40.8124, lng: -74.0752 }, level: 'Level 1',
+      description: 'Rotating dishes from participating nations',
       icon: '🍛', isOpen: true, currentWaitMinutes: 18, maxCapacity: 35, currentLoad: 0.92,
       accessibleRoute: false,
       menuItems: [
-        { name: 'Chicken Biryani', price: 350, isVeg: false, isPopular: true },
-        { name: 'Veg Biryani', price: 280, isVeg: true, isPopular: false },
-        { name: 'Seekh Kebab', price: 250, isVeg: false, isPopular: true },
+        { name: 'Chicken Rice Bowl', price: 15, isVeg: false, isPopular: true },
+        { name: 'Vegetable Rice Bowl', price: 13, isVeg: true, isPopular: false },
+        { name: 'Grilled Skewers', price: 12, isVeg: false, isPopular: true },
       ]
     },
 
     // Restrooms
     {
       id: 'restroom-1', name: 'Restroom - North Gate', category: 'restroom',
-      location: { lat: 28.6143, lng: 77.2290 }, level: 'Ground',
+      location: { lat: 40.8149, lng: -74.0750 }, level: 'Ground',
       description: 'Near North Gate entrance', icon: '🚻',
       isOpen: true, currentWaitMinutes: 6, maxCapacity: 20, currentLoad: 0.65, accessibleRoute: true,
     },
     {
       id: 'restroom-2', name: 'Restroom - South Gate', category: 'restroom',
-      location: { lat: 28.6116, lng: 77.2300 }, level: 'Ground',
+      location: { lat: 40.8122, lng: -74.0740 }, level: 'Ground',
       description: 'Near South Gate entrance', icon: '🚻',
       isOpen: true, currentWaitMinutes: 2, maxCapacity: 20, currentLoad: 0.25, accessibleRoute: true,
     },
     {
       id: 'restroom-3', name: 'Restroom - East Wing', category: 'restroom',
-      location: { lat: 28.6130, lng: 77.2318 }, level: 'Level 1',
+      location: { lat: 40.8136, lng: -74.0722 }, level: 'Level 1',
       description: 'East wing facilities', icon: '🚻',
       isOpen: true, currentWaitMinutes: 10, maxCapacity: 15, currentLoad: 0.85, accessibleRoute: true,
     },
     {
       id: 'restroom-4', name: 'Restroom - West Wing', category: 'restroom',
-      location: { lat: 28.6130, lng: 77.2272 }, level: 'Ground',
+      location: { lat: 40.8136, lng: -74.0768 }, level: 'Ground',
       description: 'West wing facilities', icon: '🚻',
       isOpen: false, currentWaitMinutes: 0, maxCapacity: 15, currentLoad: 0, accessibleRoute: true,
     },
@@ -120,13 +120,13 @@ export const venue: Venue = {
     // Merchandise
     {
       id: 'merch-1', name: 'Fan Zone Store', category: 'merchandise',
-      location: { lat: 28.6138, lng: 77.2278 }, level: 'Ground',
-      description: 'Official team jerseys, caps, and memorabilia',
+      location: { lat: 40.8144, lng: -74.0762 }, level: 'Ground',
+      description: 'Official World Cup 2026 jerseys, caps, and memorabilia',
       icon: '🏪', isOpen: true, currentWaitMinutes: 15, maxCapacity: 30, currentLoad: 0.82, accessibleRoute: true,
     },
     {
       id: 'merch-2', name: 'Quick Merch Kiosk', category: 'merchandise',
-      location: { lat: 28.6122, lng: 77.2308 }, level: 'Ground',
+      location: { lat: 40.8128, lng: -74.0732 }, level: 'Ground',
       description: 'Quick-buy scarves, flags, and accessories',
       icon: '🏪', isOpen: true, currentWaitMinutes: 4, maxCapacity: 15, currentLoad: 0.35, accessibleRoute: true,
     },
@@ -134,25 +134,25 @@ export const venue: Venue = {
     // Gates
     {
       id: 'gate-north', name: 'North Gate (Gate A)', category: 'gate',
-      location: { lat: 28.6148, lng: 77.2295 }, level: 'Ground',
+      location: { lat: 40.8154, lng: -74.0745 }, level: 'Ground',
       description: 'Main entrance - North', icon: '🚪',
       isOpen: true, currentWaitMinutes: 0, maxCapacity: 500, currentLoad: 0.20, accessibleRoute: true,
     },
     {
       id: 'gate-south', name: 'South Gate (Gate B)', category: 'gate',
-      location: { lat: 28.6110, lng: 77.2295 }, level: 'Ground',
+      location: { lat: 40.8116, lng: -74.0745 }, level: 'Ground',
       description: 'Main entrance - South', icon: '🚪',
       isOpen: true, currentWaitMinutes: 0, maxCapacity: 500, currentLoad: 0.15, accessibleRoute: true,
     },
     {
       id: 'gate-east', name: 'East Gate (Gate C)', category: 'gate',
-      location: { lat: 28.6129, lng: 77.2325 }, level: 'Ground',
+      location: { lat: 40.8135, lng: -74.0715 }, level: 'Ground',
       description: 'VIP & Premium entrance', icon: '🚪',
       isOpen: true, currentWaitMinutes: 0, maxCapacity: 300, currentLoad: 0.10, accessibleRoute: true,
     },
     {
       id: 'gate-west', name: 'West Gate (Gate D)', category: 'gate',
-      location: { lat: 28.6129, lng: 77.2265 }, level: 'Ground',
+      location: { lat: 40.8135, lng: -74.0775 }, level: 'Ground',
       description: 'Family & Accessible entrance', icon: '🚪',
       isOpen: true, currentWaitMinutes: 0, maxCapacity: 300, currentLoad: 0.12, accessibleRoute: true,
     },
@@ -160,13 +160,13 @@ export const venue: Venue = {
     // Medical
     {
       id: 'medical-1', name: 'First Aid - North', category: 'medical',
-      location: { lat: 28.6145, lng: 77.2300 }, level: 'Ground',
+      location: { lat: 40.8151, lng: -74.0740 }, level: 'Ground',
       description: '24/7 medical assistance', icon: '🏥',
       isOpen: true, currentWaitMinutes: 0, maxCapacity: 10, currentLoad: 0.10, accessibleRoute: true,
     },
     {
       id: 'medical-2', name: 'First Aid - South', category: 'medical',
-      location: { lat: 28.6112, lng: 77.2290 }, level: 'Ground',
+      location: { lat: 40.8118, lng: -74.0750 }, level: 'Ground',
       description: '24/7 medical assistance', icon: '🏥',
       isOpen: true, currentWaitMinutes: 0, maxCapacity: 10, currentLoad: 0.05, accessibleRoute: true,
     },
@@ -174,7 +174,7 @@ export const venue: Venue = {
     // Info
     {
       id: 'info-1', name: 'Information Desk', category: 'info',
-      location: { lat: 28.6140, lng: 77.2295 }, level: 'Ground',
+      location: { lat: 40.8146, lng: -74.0745 }, level: 'Ground',
       description: 'Lost & found, assistance, directions', icon: 'ℹ️',
       isOpen: true, currentWaitMinutes: 5, maxCapacity: 10, currentLoad: 0.50, accessibleRoute: true,
     },
@@ -182,7 +182,7 @@ export const venue: Venue = {
     // ATM
     {
       id: 'atm-1', name: 'ATM - North Lobby', category: 'atm',
-      location: { lat: 28.6144, lng: 77.2288 }, level: 'Ground',
+      location: { lat: 40.8150, lng: -74.0752 }, level: 'Ground',
       description: 'Cash withdrawal', icon: '🏧',
       isOpen: true, currentWaitMinutes: 3, maxCapacity: 3, currentLoad: 0.33, accessibleRoute: true,
     },
@@ -190,13 +190,13 @@ export const venue: Venue = {
     // Parking
     {
       id: 'parking-1', name: 'Parking Lot A (North)', category: 'parking',
-      location: { lat: 28.6155, lng: 77.2295 }, level: 'Ground',
+      location: { lat: 40.8161, lng: -74.0745 }, level: 'Ground',
       description: 'Closest to North Gate', icon: '🅿️',
       isOpen: true, currentWaitMinutes: 0, maxCapacity: 2000, currentLoad: 0.88, accessibleRoute: true,
     },
     {
       id: 'parking-2', name: 'Parking Lot B (South)', category: 'parking',
-      location: { lat: 28.6100, lng: 77.2295 }, level: 'Ground',
+      location: { lat: 40.8106, lng: -74.0745 }, level: 'Ground',
       description: 'Closest to South Gate', icon: '🅿️',
       isOpen: true, currentWaitMinutes: 0, maxCapacity: 2000, currentLoad: 0.62, accessibleRoute: true,
     },
@@ -205,8 +205,8 @@ export const venue: Venue = {
 
 // --- Live Game State ---
 export const initialGameState: GameState = {
-  homeTeam: 'Delhi Titans',
-  awayTeam: 'Mumbai Warriors',
+  homeTeam: 'Brazil',
+  awayTeam: 'Japan',
   homeScore: 2,
   awayScore: 1,
   period: '2nd Half',
@@ -217,14 +217,14 @@ export const initialGameState: GameState = {
 
 // --- Initial Crowd Density ---
 export const initialCrowdData: CrowdDensity[] = [
-  { zoneId: 'zone-north', zoneName: 'North Concourse', density: 0.72, trend: 'increasing', location: { lat: 28.6142, lng: 77.2295 }, lastUpdated: Date.now() },
-  { zoneId: 'zone-south', zoneName: 'South Concourse', density: 0.45, trend: 'stable', location: { lat: 28.6116, lng: 77.2295 }, lastUpdated: Date.now() },
-  { zoneId: 'zone-east', zoneName: 'East Wing', density: 0.85, trend: 'increasing', location: { lat: 28.6129, lng: 77.2315 }, lastUpdated: Date.now() },
-  { zoneId: 'zone-west', zoneName: 'West Wing', density: 0.38, trend: 'decreasing', location: { lat: 28.6129, lng: 77.2275 }, lastUpdated: Date.now() },
-  { zoneId: 'zone-food-court', zoneName: 'Food Court', density: 0.91, trend: 'increasing', location: { lat: 28.6135, lng: 77.2290 }, lastUpdated: Date.now() },
-  { zoneId: 'zone-main-entrance', zoneName: 'Main Entrance', density: 0.25, trend: 'decreasing', location: { lat: 28.6148, lng: 77.2295 }, lastUpdated: Date.now() },
-  { zoneId: 'zone-vip', zoneName: 'VIP Area', density: 0.55, trend: 'stable', location: { lat: 28.6135, lng: 77.2310 }, lastUpdated: Date.now() },
-  { zoneId: 'zone-merch', zoneName: 'Merchandise Zone', density: 0.68, trend: 'stable', location: { lat: 28.6138, lng: 77.2278 }, lastUpdated: Date.now() },
+  { zoneId: 'zone-north', zoneName: 'North Concourse', density: 0.72, trend: 'increasing', location: { lat: 40.8148, lng: -74.0745 }, lastUpdated: Date.now() },
+  { zoneId: 'zone-south', zoneName: 'South Concourse', density: 0.45, trend: 'stable', location: { lat: 40.8122, lng: -74.0745 }, lastUpdated: Date.now() },
+  { zoneId: 'zone-east', zoneName: 'East Concourse', density: 0.85, trend: 'increasing', location: { lat: 40.8135, lng: -74.0725 }, lastUpdated: Date.now() },
+  { zoneId: 'zone-west', zoneName: 'West Concourse', density: 0.38, trend: 'decreasing', location: { lat: 40.8135, lng: -74.0765 }, lastUpdated: Date.now() },
+  { zoneId: 'zone-food-court', zoneName: 'Food Hall', density: 0.91, trend: 'increasing', location: { lat: 40.8141, lng: -74.0750 }, lastUpdated: Date.now() },
+  { zoneId: 'zone-main-entrance', zoneName: 'North Plaza', density: 0.25, trend: 'decreasing', location: { lat: 40.8154, lng: -74.0745 }, lastUpdated: Date.now() },
+  { zoneId: 'zone-vip', zoneName: 'Hospitality', density: 0.55, trend: 'stable', location: { lat: 40.8141, lng: -74.0730 }, lastUpdated: Date.now() },
+  { zoneId: 'zone-merch', zoneName: 'Fan Market', density: 0.68, trend: 'stable', location: { lat: 40.8144, lng: -74.0762 }, lastUpdated: Date.now() },
 ];
 
 // --- Queue Data (derived from POIs) ---
@@ -248,7 +248,7 @@ export function getQueueData(): QueueInfo[] {
 export const initialFeedItems: EventFeedItem[] = [
   {
     id: 'feed-1', type: 'score', title: '⚽ GOAL!',
-    message: 'Delhi Titans take the lead! Rahul Singh scores a brilliant volley in the 62nd minute!',
+    message: 'Brazil take the lead with a brilliant volley in the 62nd minute!',
     timestamp: Date.now() - 5 * 60 * 1000, priority: 'high', icon: '⚽',
   },
   {
@@ -264,23 +264,23 @@ export const initialFeedItems: EventFeedItem[] = [
   },
   {
     id: 'feed-4', type: 'alert', title: '⚠️ Crowd Advisory',
-    message: 'East Wing food court is currently very busy. Consider visiting Chai & Snacks on Level 1 for shorter wait times.',
+    message: 'East Concourse is currently very busy. Consider Global Bites on Level 1 for a shorter wait.',
     timestamp: Date.now() - 15 * 60 * 1000, priority: 'medium', icon: '⚠️',
   },
   {
     id: 'feed-5', type: 'trivia', title: '🧠 Fan Trivia',
-    message: 'Answer correctly to earn 50 points! Question: Who holds the record for most goals at National Arena?',
+    message: 'Answer correctly to earn 50 points! Question: Which nation has won the most FIFA World Cup titles?',
     timestamp: Date.now() - 20 * 60 * 1000, priority: 'low', icon: '🧠',
     actionLabel: 'Play Now', actionUrl: '/feed#trivia',
   },
   {
     id: 'feed-6', type: 'score', title: '⚽ GOAL!',
-    message: 'Mumbai Warriors equalize! Fantastic header by Arjun Patel from a corner kick.',
+    message: 'Japan equalize with a fantastic header from a corner kick.',
     timestamp: Date.now() - 30 * 60 * 1000, priority: 'high', icon: '⚽',
   },
   {
     id: 'feed-7', type: 'announcement', title: '🏟️ Welcome!',
-    message: 'Welcome to National Arena! Today\'s match: Delhi Titans vs Mumbai Warriors. Enjoy the game!',
+    message: 'Welcome to the New York New Jersey Stadium! Today\'s simulated match is Brazil vs Japan.',
     timestamp: Date.now() - 90 * 60 * 1000, priority: 'low', icon: '🏟️',
   },
 ];
@@ -289,46 +289,46 @@ export const initialFeedItems: EventFeedItem[] = [
 export const triviaQuestions: TriviaQuestion[] = [
   {
     id: 'trivia-1',
-    question: 'Who holds the record for most goals scored at National Arena?',
-    options: ['Rahul Singh', 'Vikram Kapoor', 'Arjun Patel', 'Suresh Kumar'],
-    correctIndex: 1,
+    question: 'Which nation has won the most FIFA World Cup titles?',
+    options: ['Brazil', 'Germany', 'Italy', 'Argentina'],
+    correctIndex: 0,
     points: 50,
     timeLimit: 15,
   },
   {
     id: 'trivia-2',
-    question: 'What year was National Arena inaugurated?',
-    options: ['2018', '2019', '2020', '2021'],
+    question: 'How many host countries stage the FIFA World Cup 2026?',
+    options: ['One', 'Two', 'Three', 'Four'],
     correctIndex: 2,
     points: 30,
     timeLimit: 10,
   },
   {
     id: 'trivia-3',
-    question: 'What is the seating capacity of National Arena?',
-    options: ['45,000', '50,000', '55,000', '60,000'],
-    correctIndex: 3,
+    question: 'Which StadiumIQ feature protects step-free travel during crowd surges?',
+    options: ['Queue pricing', 'Accessible routing', 'Fan trivia', 'Merch alerts'],
+    correctIndex: 1,
     points: 40,
     timeLimit: 10,
   },
 ];
 
 // --- Gemini System Prompt ---
-export const GEMINI_SYSTEM_PROMPT = `You are "Stadium Buddy", an AI-powered concierge assistant for National Arena, a 60,000-seat multi-sport stadium. You help fans navigate the venue, find food, check queue times, and enjoy their experience.
+export const GEMINI_SYSTEM_PROMPT = `You are "Stadium Buddy", the multilingual fan assistant inside StadiumIQ NEXUS for a FIFA World Cup 2026 matchday simulation at New York New Jersey Stadium. You help fans navigate, find services, use accessible routes, understand transport options, and stay calm during live operational changes.
 
 VENUE KNOWLEDGE:
-- National Arena is hosting Delhi Titans vs Mumbai Warriors (Football)
-- Current score: Delhi Titans 2 - Mumbai Warriors 1 (2nd Half, 67th minute)
+- New York New Jersey Stadium is hosting a simulated Brazil vs Japan match
+- Current score: Brazil 2 - Japan 1 (2nd Half, 67th minute)
 - Stadium has 4 main gates: North (A), South (B), East (C - VIP), West (D - Family/Accessible)
 - 2 levels: Ground and Level 1
-- VIP sections on East and West sides
+- Hospitality sections are on the East and West sides
 
 FOOD OPTIONS:
 1. The Grand Grill (Ground, North) - Burgers, hot dogs, wings. Wait: ~12 min
 2. Pizza Corner (Ground, South) - Fresh pizza. Wait: ~8 min
-3. Chai & Snacks (Level 1, East) - Indian snacks, chai. Wait: ~5 min ⭐ SHORTEST WAIT
+3. Global Bites (Level 1, East) - International snacks. Wait: ~5 min ⭐ SHORTEST WAIT
 4. Hydration Station (Ground, West) - Water, juices. Wait: ~3 min
-5. Biryani Bowl (Level 1, South) - Biryani, kebabs. Wait: ~18 min ⚠️ LONGEST WAIT
+5. World Flavors (Level 1, South) - Rotating dishes. Wait: ~18 min ⚠️ LONGEST WAIT
 
 RESTROOMS:
 1. North Gate - Wait: ~6 min
@@ -337,8 +337,8 @@ RESTROOMS:
 4. West Wing - CLOSED for maintenance
 
 CURRENT CONDITIONS:
-- East Wing and Food Court are very crowded (85%+ density)
-- West Wing and South area have low crowd density
+- East Concourse and Food Hall are very crowded (85%+ density)
+- West Concourse and South area have low crowd density
 - North Concourse is moderately busy
 - Merchandise: Fan Zone Store (15 min wait), Quick Merch Kiosk (4 min wait)
 
@@ -348,6 +348,8 @@ BEHAVIOR:
 - Warn about crowded areas proactively
 - Give clear directions using gates and landmarks
 - Consider accessibility needs when asked
+- Reply in the fan's language when they use a language other than English
+- Never invent an emergency instruction; tell fans to follow venue staff and illuminated signage
 - Use emojis sparingly for a friendly tone
 - If asked about emergencies, provide safety-first guidance
 - Suggest best times based on crowd predictions

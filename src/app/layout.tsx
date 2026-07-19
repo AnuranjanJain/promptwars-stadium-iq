@@ -6,13 +6,13 @@ import Navbar from '@/components/layout/Navbar';
 import BottomNav from '@/components/layout/BottomNav';
 
 export const metadata: Metadata = {
-  title: 'StadiumIQ — AI-Powered Smart Venue Assistant',
-  description: 'Your personal AI concierge for sporting events. Real-time crowd intelligence, smart navigation, queue estimates, and an AI chatbot to make your stadium experience seamless.',
-  keywords: 'stadium, AI assistant, crowd management, queue times, smart venue, sporting events, Gemini AI, Google Maps, Firebase',
+  title: 'StadiumIQ NEXUS — World Cup 2026 Tournament Intelligence',
+  description: 'A GenAI-enabled stadium operations and fan experience platform for the FIFA World Cup 2026, combining a live venue digital twin, predictive crowd intelligence, accessible wayfinding, multilingual assistance, and human-in-the-loop decision support.',
+  keywords: 'FIFA World Cup 2026, smart stadium, tournament operations, Gemini AI, crowd management, accessible navigation, multilingual assistance, transport intelligence, sustainability',
   authors: [{ name: 'StadiumIQ Team' }],
   openGraph: {
-    title: 'StadiumIQ — AI-Powered Smart Venue Assistant',
-    description: 'Real-time crowd intelligence and AI-powered assistance for sporting venues.',
+    title: 'StadiumIQ NEXUS — World Cup 2026 Tournament Intelligence',
+    description: 'One shared AI intelligence layer for fans, venue teams, transport partners, volunteers, and matchday commanders.',
     type: 'website',
   },
 };

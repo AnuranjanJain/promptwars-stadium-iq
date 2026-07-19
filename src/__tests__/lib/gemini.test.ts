@@ -16,7 +16,7 @@ import {
 describe('chatWithGemini — Fallback Responses', () => {
   it('returns food recommendations for food-related queries', async () => {
     const response = await chatWithGemini('Where can I get food?');
-    expect(response).toContain('Chai & Snacks');
+    expect(response).toContain('Global Bites');
     expect(response).toContain('Pizza Corner');
   });
 
@@ -43,8 +43,8 @@ describe('chatWithGemini — Fallback Responses', () => {
 
   it('returns score info for game queries', async () => {
     const response = await chatWithGemini("What's the score?");
-    expect(response).toContain('Delhi Titans');
-    expect(response).toContain('Mumbai Warriors');
+    expect(response).toContain('Brazil');
+    expect(response).toContain('Japan');
   });
 
   it('returns gate info for exit queries', async () => {
