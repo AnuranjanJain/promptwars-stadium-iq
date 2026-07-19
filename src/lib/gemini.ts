@@ -1,7 +1,7 @@
 // ============================================================
 // StadiumIQ — Gemini AI Client
 // Provides text chat, image analysis, and crowd intelligence
-// using Google's Gemini 2.0 Flash model.
+// using Google's stable Gemini 2.5 Flash model by default.
 // ============================================================
 
 import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
@@ -28,7 +28,7 @@ function getModel(): GenerativeModel | null {
   }
   if (!model) {
     model = genAI.getGenerativeModel({
-      model: 'gemini-2.0-flash',
+      model: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
       systemInstruction: GEMINI_SYSTEM_PROMPT,
     });
   }
@@ -101,7 +101,7 @@ export async function analyzeImage(
 
   try {
     const ai = new GoogleGenerativeAI(apiKey);
-    const visionModel = ai.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const visionModel = ai.getGenerativeModel({ model: process.env.GEMINI_MODEL || 'gemini-2.5-flash' });
 
     const result = await visionModel.generateContent([
       {
@@ -110,7 +110,7 @@ export async function analyzeImage(
           data: imageBase64,
         },
       },
-      prompt + '\n\nContext: You are Stadium Buddy, an AI assistant at National Arena. Based on this image, help the user identify where they are in the stadium and provide navigation assistance.',
+      prompt + '\n\nContext: You are Stadium Buddy at the World Cup 2026 New York New Jersey venue simulation. Based on this image, help the user identify where they are and provide calm, accessible navigation assistance.',
     ]);
 
     return result.response.text();
@@ -196,13 +196,13 @@ function getFallbackResponse(message: string): string {
   const lower = message.toLowerCase();
 
   if (lower.includes('food') || lower.includes('eat') || lower.includes('hungry')) {
-    return "🍽️ Great timing! Here are your best options right now:\n\n1. **Chai & Snacks** (Level 1, East) — Only ~5 min wait! ⭐\n2. **Pizza Corner** (Ground, South) — ~8 min wait\n3. **The Grand Grill** (Ground, North) — ~12 min wait\n\n⚠️ Avoid Biryani Bowl right now (18 min wait). Pro tip: Halftime rush is coming in ~20 min — grab food NOW!";
+    return "🍽️ Great timing! Here are your best options right now:\n\n1. **Global Bites** (Level 1, East) — Only ~5 min wait! ⭐\n2. **Pizza Corner** (Ground, South) — ~8 min wait\n3. **The Grand Grill** (Ground, North) — ~12 min wait\n\n⚠️ Avoid World Flavors right now (18 min wait). Pro tip: halftime demand is rising, so going now will save time.";
   }
   if (lower.includes('restroom') || lower.includes('bathroom') || lower.includes('toilet') || lower.includes('washroom')) {
     return "🚻 Here are the restroom wait times:\n\n1. **South Gate** — ~2 min wait ⭐ Best option!\n2. **North Gate** — ~6 min wait\n3. **East Wing (L1)** — ~10 min wait\n4. **West Wing** — ❌ Closed for maintenance\n\nI recommend the South Gate restroom — shortest wait!";
   }
   if (lower.includes('score') || lower.includes('game') || lower.includes('match')) {
-    return "⚽ **Live Score:**\n\n🏠 Delhi Titans **2** - **1** Mumbai Warriors 🏢\n\n⏱️ 2nd Half — 67:23\n\nRahul Singh scored a brilliant volley in the 62nd minute to give Delhi the lead! 🔥";
+    return "⚽ **World Cup 2026 Match Simulation:**\n\n🇧🇷 Brazil **2** - **1** Japan 🇯🇵\n\n⏱️ 2nd Half — 67:23\n\nBrazil took the lead with a brilliant volley in the 62nd minute.";
   }
   if (lower.includes('gate') || lower.includes('exit') || lower.includes('leave')) {
     return "🚪 Here are the exits:\n\n- **Gate A (North)** — Low crowd\n- **Gate B (South)** — Low crowd ⭐\n- **Gate C (East)** — VIP entrance\n- **Gate D (West)** — Family/Accessible ♿\n\nGate B (South) currently has the least congestion!";
@@ -241,7 +241,7 @@ export async function generateSafetyBriefing(section: string): Promise<string> {
 
   try {
     const result = await geminiModel.generateContent(
-      `As Stadium Buddy, generate a brief personalized safety briefing for a fan sitting in "${section}" at National Arena. Include: nearest emergency exit, nearest first aid station, and one general safety tip. Keep it under 100 words and friendly.`
+      `As Stadium Buddy, generate a brief personalized World Cup 2026 safety briefing for a fan sitting in "${section}" at New York New Jersey Stadium. Include: nearest emergency exit, nearest first aid station, and one general safety tip. Keep it under 100 words, calm, and friendly.`
     );
     return result.response.text();
   } catch (error) {

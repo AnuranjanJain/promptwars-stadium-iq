@@ -241,7 +241,7 @@ export default function MapPage() {
                       {item.name}
                       {item.isPopular && <span className={styles.popularTag}>🔥 Popular</span>}
                     </span>
-                    <span style={{ fontWeight: 600 }}>₹{item.price}</span>
+                    <span style={{ fontWeight: 600 }}>${item.price}</span>
                   </div>
                 ))}
               </>

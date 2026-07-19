@@ -91,11 +91,11 @@ export async function POST(request: NextRequest) {
  * Returns nearby transit stations for the venue (convenience endpoint).
  */
 export async function GET() {
-  const transit = await searchNearbyPlaces(28.6129, 77.2295, 'transit_station', 1500);
-  const parking = await searchNearbyPlaces(28.6129, 77.2295, 'parking', 1000);
+  const transit = await searchNearbyPlaces(40.8135, -74.0745, 'transit_station', 1500);
+  const parking = await searchNearbyPlaces(40.8135, -74.0745, 'parking', 1000);
 
   return NextResponse.json({
-    venue: 'National Arena',
+    venue: 'New York New Jersey Stadium',
     nearby: {
       transit,
       parking,

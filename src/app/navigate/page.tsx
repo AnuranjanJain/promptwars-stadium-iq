@@ -92,15 +92,12 @@ const QUICK_DESTINATIONS = [
 ];
 
 export default function NavigatePage() {
-  const { userSection, crowdData } = useAppContext();
+  const { userSection } = useAppContext();
   const [selectedDest, setSelectedDest] = useState<POI | null>(null);
   const [avoidCrowds, setAvoidCrowds] = useState(true);
   const [accessibleRoute, setAccessibleRoute] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // We use crowdData length here to show we are aware of crowd conditions even if the
-  // route generator is currently heavily simulated to avoid complexity
-  const isVenueCrowded = crowdData.some(zone => zone.density > 0.8);
   const filteredPois = useMemo(() => {
     if (!searchQuery.trim()) return [];
     return venue.pois.filter(p =>

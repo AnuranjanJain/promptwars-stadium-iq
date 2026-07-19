@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
+import Image from 'next/image';
 import { useAppContext } from '@/components/AppProvider';
 import { ChatMessage } from '@/types';
-import { generateId } from '@/utils/helpers';
+import { generateId, getCurrentTimestamp } from '@/utils/helpers';
 import styles from './page.module.css';
 
 const SUGGESTIONS = [
@@ -19,19 +20,14 @@ const SUGGESTIONS = [
 
 export default function ChatPage() {
   const { gameState } = useAppContext();
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  
-  useEffect(() => {
-    // Initialize messages on client to avoid hydration mismatch with Date.now()
-    setMessages([
-      {
-        id: 'welcome',
-        role: 'assistant',
-        content: `👋 Hey there! I'm **Stadium Buddy**, your AI concierge for National Arena!\n\n⚽ **${gameState.homeTeam} ${gameState.homeScore} - ${gameState.awayScore} ${gameState.awayTeam}** (${gameState.period}, ${gameState.timeRemaining})\n\nI can help you with:\n- 🍔 Finding food with the shortest waits\n- 🚻 Nearest restrooms and queue times\n- 🗺️ Navigation within the stadium\n- 🔮 Crowd predictions\n- 📸 Photo-based location finding\n\nWhat do you need?`,
-        timestamp: Date.now(),
-      },
-    ]);
-  }, [gameState]);
+  const [messages, setMessages] = useState<ChatMessage[]>(() => [
+    {
+      id: 'welcome',
+      role: 'assistant',
+      content: `👋 Welcome to the **World Cup 2026 Stadium Buddy**!\n\n⚽ **${gameState.homeTeam} ${gameState.homeScore} - ${gameState.awayScore} ${gameState.awayTeam}** (${gameState.period}, ${gameState.timeRemaining})\n\nI can help you with:\n- 🍔 Finding food with the shortest waits\n- 🚻 Nearest restrooms and queue times\n- 🗺️ Accessible navigation within the stadium\n- 🔮 Crowd and transport predictions\n- 🌐 Multilingual matchday help\n\nWhat do you need?`,
+      timestamp: 0,
+    },
+  ]);
 
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -56,7 +52,7 @@ export default function ChatPage() {
       id: generateId(),
       role: 'user',
       content: messageText,
-      timestamp: Date.now(),
+      timestamp: getCurrentTimestamp(),
       imageUrl: selectedImage || undefined,
     };
 
@@ -71,7 +67,7 @@ export default function ChatPage() {
       id: loadingId,
       role: 'assistant',
       content: '',
-      timestamp: Date.now(),
+      timestamp: getCurrentTimestamp(),
       isLoading: true,
     }]);
 
@@ -95,10 +91,10 @@ export default function ChatPage() {
 
       setMessages(prev => prev.map(m =>
         m.id === loadingId
-          ? { ...m, content: data.response, isLoading: false, timestamp: Date.now() }
+          ? { ...m, content: data.response, isLoading: false, timestamp: getCurrentTimestamp() }
           : m
       ));
-    } catch (error) {
+    } catch {
       setMessages(prev => prev.map(m =>
         m.id === loadingId
           ? { ...m, content: 'Sorry, I encountered an error. Please try again!', isLoading: false }
@@ -182,9 +178,12 @@ export default function ChatPage() {
                   ) : (
                     <>
                       {msg.imageUrl && (
-                        <img
+                        <Image
                           src={`data:image/jpeg;base64,${msg.imageUrl}`}
                           alt="Uploaded"
+                          width={200}
+                          height={140}
+                          unoptimized
                           style={{ maxWidth: '200px', borderRadius: '8px', marginBottom: '8px', display: 'block' }}
                         />
                       )}
@@ -222,7 +221,7 @@ export default function ChatPage() {
       <div className={styles.chatInput}>
         {selectedImage && (
           <div className={styles.imagePreview}>
-            <img src={`data:image/jpeg;base64,${selectedImage}`} alt="Selected" />
+            <Image src={`data:image/jpeg;base64,${selectedImage}`} alt="Selected" width={120} height={80} unoptimized />
             <button className={styles.removeImage} onClick={() => setSelectedImage(null)} aria-label="Remove image">✕</button>
           </div>
         )}

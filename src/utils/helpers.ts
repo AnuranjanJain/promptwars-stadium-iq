@@ -114,6 +114,11 @@ export function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).substring(2, 9);
 }
 
+/** Returns a wall-clock timestamp for event handlers and async callbacks. */
+export function getCurrentTimestamp(): number {
+  return Date.now();
+}
+
 /**
  * Returns the emoji icon associated with a POI category.
  *

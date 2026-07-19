@@ -109,7 +109,7 @@ describe('GET /api/places', () => {
     const data = await response.json();
 
     expect(response.status).toBe(200);
-    expect(data.venue).toBe('National Arena');
+    expect(data.venue).toBe('New York New Jersey Stadium');
     expect(data.nearby).toBeDefined();
     expect(data.nearby.transit).toBeDefined();
     expect(data.nearby.parking).toBeDefined();

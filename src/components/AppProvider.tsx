@@ -27,7 +27,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    const themeTimer = window.setTimeout(() => {
       const storedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
       if (storedTheme) {
         setTheme(storedTheme);
@@ -36,7 +36,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
       } else {
         setTheme('light');
       }
-    }
+    }, 0);
+
+    return () => window.clearTimeout(themeTimer);
   }, []);
 
   // Apply theme to html element

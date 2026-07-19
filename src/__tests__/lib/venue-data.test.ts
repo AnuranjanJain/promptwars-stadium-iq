@@ -14,14 +14,14 @@ import {
 
 describe('Venue Data', () => {
   it('has a valid venue ID and name', () => {
-    expect(venue.id).toBe('national-arena');
-    expect(venue.name).toBe('National Arena');
-    expect(venue.capacity).toBe(60000);
+    expect(venue.id).toBe('world-cup-2026-nynj');
+    expect(venue.name).toBe('New York New Jersey Stadium');
+    expect(venue.capacity).toBe(82500);
   });
 
   it('has valid location coordinates', () => {
-    expect(venue.location.lat).toBeCloseTo(28.6129, 3);
-    expect(venue.location.lng).toBeCloseTo(77.2295, 3);
+    expect(venue.location.lat).toBeCloseTo(40.8135, 3);
+    expect(venue.location.lng).toBeCloseTo(-74.0745, 3);
   });
 
   it('has a valid map zoom level', () => {
@@ -263,7 +263,7 @@ describe('Gemini System Prompt', () => {
   });
 
   it('contains venue name', () => {
-    expect(GEMINI_SYSTEM_PROMPT).toContain('National Arena');
+    expect(GEMINI_SYSTEM_PROMPT).toContain('New York New Jersey Stadium');
   });
 
   it('contains food option details', () => {

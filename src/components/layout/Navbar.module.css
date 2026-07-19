@@ -4,10 +4,10 @@
   left: 0;
   right: 0;
   height: var(--nav-height);
-  background: rgba(10, 14, 26, 0.85);
+  background: rgba(6, 10, 13, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(165, 215, 199, 0.1);
   z-index: 100;
   display: flex;
   align-items: center;
@@ -16,7 +16,7 @@
 
 .navInner {
   width: 100%;
-  max-width: var(--max-width);
+  max-width: 1560px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -33,16 +33,19 @@
 .logo {
   font-size: 1.5rem;
   line-height: 1;
+  color: #2dd483;
 }
 
 .brandName {
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 700;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #edf8f3;
+}
+
+.brandName strong {
+  color: #2dd483;
+  font-weight: 500;
 }
 
 .navLinks {
@@ -71,8 +74,8 @@
 }
 
 .navLink.active {
-  color: var(--color-accent-light);
-  background: var(--color-accent-glow);
+  color: #65e7a7;
+  background: rgba(45, 212, 131, 0.09);
 }
 
 .navLink.active::after {
@@ -83,7 +86,7 @@
   transform: translateX(-50%);
   width: 20px;
   height: 2px;
-  background: var(--color-accent);
+  background: #2dd483;
   border-radius: var(--radius-full);
 }
 
@@ -128,4 +131,6 @@
     font-size: 0.75rem;
     padding: 4px 10px;
   }
+
+  .brandName { font-size: 1rem; }
 }

@@ -70,7 +70,7 @@ describe('GET /api/geocode', () => {
     const data = await response.json();
 
     expect(response.status).toBe(200);
-    expect(data.venue).toBe('National Arena');
+    expect(data.venue).toBe('New York New Jersey Stadium');
     expect(data.address).toBeDefined();
     expect(data.address.formattedAddress).toBeDefined();
   });
